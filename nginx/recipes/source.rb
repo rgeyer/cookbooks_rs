@@ -31,14 +31,15 @@ nginx_version = node[:nginx][:version]
 configure_flags = node[:nginx][:configure_flags].join(" ")
 node.set[:nginx][:daemon_disable] = true
 
-remote_file "/tmp/nginx-#{nginx_version}.tar.gz" do
-  source "http://sysoev.ru/nginx/nginx-#{nginx_version}.tar.gz"
-  action :create_if_missing
-end
+#remote_file "/tmp/nginx-#{nginx_version}.tar.gz" do
+#  source "http://sysoev.ru/nginx/nginx-#{nginx_version}.tar.gz"
+#  action :create_if_missing
+#end
 
 bash "compile_nginx_source" do
   cwd "/tmp"
   code <<-EOH
+    wget -q -O /tmp/nginx-#{nginx_version}.tar.gz http://sysoev.ru/nginx/nginx-#{nginx_version}.tar.gz
     tar zxf nginx-#{nginx_version}.tar.gz
     cd nginx-#{nginx_version} && ./configure #{configure_flags}
     make && make install
@@ -46,54 +47,6 @@ bash "compile_nginx_source" do
   creates node[:nginx][:src_binary]
 end
 
-directory node[:nginx][:log_dir] do
-  mode 0755
-  owner node[:nginx][:user]
-  action :create
-end
+include_recipe "nginx::config_server"
 
-directory node[:nginx][:dir] do
-  owner "root"
-  group "root"
-  mode "0755"
-end
 
-runit_service "nginx"
-
-service "nginx" do
-  subscribes :restart, resources(:bash => "compile_nginx_source")
-end
-
-%w{ sites-available sites-enabled conf.d }.each do |dir|
-  directory "#{node[:nginx][:dir]}/#{dir}" do
-    owner "root"
-    group "root"
-    mode "0755"
-  end
-end
-
-%w{nxensite nxdissite}.each do |nxscript|
-  template "/usr/sbin/#{nxscript}" do
-    source "#{nxscript}.erb"
-    mode "0755"
-    owner "root"
-    group "root"
-  end
-end
-
-template "nginx.conf" do
-  path "#{node[:nginx][:dir]}/nginx.conf"
-  source "nginx.conf.erb"
-  owner "root"
-  group "root"
-  mode "0644"
-  notifies :restart, resources(:service => "nginx"), :immediately
-end
-
-cookbook_file "#{node[:nginx][:dir]}/mime.types" do
-  source "mime.types"
-  owner "root"
-  group "root"
-  mode "0644"
-  notifies :restart, resources(:service => "nginx"), :immediately
-end

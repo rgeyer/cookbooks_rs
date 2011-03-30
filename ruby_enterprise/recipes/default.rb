@@ -29,9 +29,21 @@ include_recipe "build-essential"
   package pkg
 end
 
-remote_file "/tmp/ruby-enterprise-#{node[:ruby_enterprise][:version]}.tar.gz" do
-  source "#{node[:ruby_enterprise][:url]}.tar.gz"
+#remote_file "/tmp/ruby-enterprise-#{node[:ruby_enterprise][:version]}.tar.gz" do
+#  source "#{node[:ruby_enterprise][:url]}.tar.gz"
+#  not_if { ::File.exists?("/tmp/ruby-enterprise-#{node[:ruby_enterprise][:version]}.tar.gz") }
+#end
+
+bash "Download ruby enterprise installer" do
+  cwd "/tmp"
+  code "wget -q -O /tmp/ruby-enterprise-#{node[:ruby_enterprise][:version]}.tar.gz #{node[:ruby_enterprise][:url]}.tar.gz"
   not_if { ::File.exists?("/tmp/ruby-enterprise-#{node[:ruby_enterprise][:version]}.tar.gz") }
+end
+
+# Fix a bug in the installer, which requires the gem libs directory to exist, rather than creating it
+directory ::File.join(node[:ruby_enterprise][:gems_dir], "gems") do
+  recursive true
+  action :create
 end
 
 bash "Install Ruby Enterprise Edition" do

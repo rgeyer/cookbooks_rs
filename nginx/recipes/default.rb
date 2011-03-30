@@ -18,39 +18,18 @@
 # limitations under the License.
 #
 
-package "nginx"
 
-directory node[:nginx][:log_dir] do
-  mode 0755
-  owner node[:nginx][:user]
-  action :create
+e = bash "add-apt-repository" do
+  code <<-EOF
+apt-get -y -q install python-software-properties
+add-apt-repository ppa:nginx/stable
+apt-get update -o Acquire::http::No-Cache=1
+EOF
+  action :nothing
 end
 
-%w{nxensite nxdissite}.each do |nxscript|
-  template "/usr/sbin/#{nxscript}" do
-    source "#{nxscript}.erb"
-    mode 0755
-    owner "root"
-    group "root"
-  end
-end
+e.run_action(:run)
 
-template "nginx.conf" do
-  path "#{node[:nginx][:dir]}/nginx.conf"
-  source "nginx.conf.erb"
-  owner "root"
-  group "root"
-  mode 0644
-end
+package "nginx-full"
 
-template "#{node[:nginx][:dir]}/sites-available/default" do
-  source "default-site.erb"
-  owner "root"
-  group "root"
-  mode 0644
-end
-
-service "nginx" do
-  supports :status => true, :restart => true, :reload => true
-  action [ :enable, :start ]
-end
+include_recipe "nginx::config_server"
