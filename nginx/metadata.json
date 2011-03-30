@@ -9,7 +9,7 @@
     "nginx::source": "Installs nginx from source and sets up configuration with Debian apache style with sites-enabled/sites-available",
     "nginx": "Installs nginx package and sets up configuration with Debian apache style with sites-enabled/sites-available",
     "nginx::config_server": "Only intended to be included by nginx::source and nginx::default.  Does the common configuration for any installation type.",
-    "nginx::enable_stats": "Configure collectd stat collection for the nginx process, as well as php-fpm (as appropriate)."
+    "nginx::enable_stats": "Configure collectd stat collection for the nginx server. Intended to work with RightScale monitoring services."
   },
   "maintainer": "Opscode, Inc.",
   "replacing": {

@@ -42,7 +42,7 @@ define :nginx_enable_vhost, :fqdn => nil, :aliases => nil do
       :params => params
     )
     if ::File.exists?("#{node[:nginx][:dir]}/sites-enabled/#{fqdn}.conf")
-      notifies :reload, resources(:service => "nginx"), :delayed
+      notifies :reload, resources(:service => "nginx"), :immediately
     end
   end
 

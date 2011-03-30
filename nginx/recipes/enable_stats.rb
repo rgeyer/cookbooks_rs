@@ -21,5 +21,5 @@ template nginx_collectd_conf do
   mode 0644
   owner "root"
   group "root"
-  notifies :restart, resources(:service => "collectd")
+  notifies :restart, resources(:service => "collectd"), :immediately
 end
