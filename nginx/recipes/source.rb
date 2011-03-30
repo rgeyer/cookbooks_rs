@@ -47,6 +47,8 @@ bash "compile_nginx_source" do
   creates node[:nginx][:src_binary]
 end
 
+runit_service "nginx"
+
 include_recipe "nginx::config_server"
 
 

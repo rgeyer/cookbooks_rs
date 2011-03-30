@@ -18,8 +18,6 @@
 # limitations under the License.
 #
 
-node[:nginx][:install_path] = "/usr"
-
 e = bash "add-apt-repository" do
   code <<-EOF
 apt-get -y -q install python-software-properties
@@ -32,5 +30,10 @@ end
 e.run_action(:run)
 
 package "nginx-full"
+
+service "nginx" do
+  supports :status => true, :restart => true, :reload => true
+  action :nothing
+end
 
 include_recipe "nginx::config_server"
