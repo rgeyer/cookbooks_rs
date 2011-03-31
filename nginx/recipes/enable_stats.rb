@@ -14,6 +14,7 @@ template nginx_conf do
   mode 0644
   owner "root"
   group "root"
+  notifies :restart, resources(:service => "nginx"), :immediately
 end
 
 template nginx_collectd_conf do
