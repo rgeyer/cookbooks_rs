@@ -36,11 +36,10 @@ nginx_enable_vhost accept_fqdn do
 end
 
 right_link_tag "reverse_proxy:for=https://#{accept_fqdn}"
-right_link_tag "reverse_proxy:target=https://#{node[:nginx][:dest_fqdn]}:#{node[:nginx][:dest_port]}"
+right_link_tag "reverse_proxy:target=http://#{node[:nginx][:dest_fqdn]}:#{node[:nginx][:dest_port]}"
 
 if node[:nginx][:proxy_http] == "true"
   right_link_tag "reverse_proxy:for=http://#{accept_fqdn}"
-  right_link_tag "reverse_proxy:target=http://#{node[:nginx][:dest_fqdn]}" unless node[:nginx][:force_https] == "true"
 end
 
 node[:nginx][:aliases].each do |a|

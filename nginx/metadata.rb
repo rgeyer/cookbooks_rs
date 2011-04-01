@@ -133,7 +133,7 @@ attribute "nginx/dest_fqdn",
 attribute "nginx/dest_port",
   :display_name => "Proxy Port",
   :description => "The the proxy port to forward to",
-  :required => "required",
+  :required => "optional",
   :recipes => ["nginx::configure_ssl_reverse_proxy", "nginx::config_server"]
 
 attribute "nginx/s3_cert_bucket",

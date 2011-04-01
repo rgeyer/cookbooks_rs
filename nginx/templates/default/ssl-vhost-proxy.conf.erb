@@ -1,18 +1,22 @@
-<% if @params[:listen_on_http] -%>
 upstream proxy {
-  server <%= @params[:dest_fqdn] %>;
+  server <%= @params[:dest_fqdn] %><% if @params[:dest_port] -%>:<%= @params[:dest_port] %><% end -%>;
 }
+
 <% if @params[:aliases] -%>
 server {
-  listen 80;
+  <% if @params[:listen_on_http] -%>
+  listen 80
+  <% end -%>
+  listen 443;
   server_name <% @params[:aliases].each do |a| -%><%= " #{a}" %><% end -%>;
 
   # Canonical host, <%= @params[:fqdn] %>
   # The "right" Nginx way - http://wiki.nginx.org/Pitfalls#Taxing_Rewrites
-  rewrite ^ http://<%= @params[:fqdn] %>$request_uri? permanent;
+  rewrite ^ $scheme://<%= @params[:fqdn] %>$request_uri? permanent;
 }
 <% end -%>
 
+<% if @params[:listen_on_http] -%>
 server {
   listen 80;
   server_name <%= @params[:fqdn] %>;
@@ -42,20 +46,6 @@ server {
 }
 <% end -%>
 
-upstream sslproxy {
-  server <%= @params[:dest_fqdn] %>:<%= @params[:dest_port] %>;
-}
-<% if @params[:aliases] -%>
-server {
-  listen 443;
-  server_name <% @params[:aliases].each do |a| -%><%= " #{a}" %><% end -%>;
-
-  # Canonical host, <%= @params[:fqdn] %>
-  # The "right" Nginx way - http://wiki.nginx.org/Pitfalls#Taxing_Rewrites
-  rewrite ^ https://<%= @params[:fqdn] %>$request_uri? permanent;
-}
-<% end -%>
-
 server {
   listen 443 default ssl;
   server_name <%= @params[:fqdn] %>;
@@ -78,6 +68,6 @@ server {
     proxy_set_header Host $host;
     proxy_redirect off;
 
-    proxy_pass https://sslproxy;
+    proxy_pass http://proxy;
   }
 }

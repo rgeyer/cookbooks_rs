@@ -83,7 +83,7 @@
       "display_name": "Force HTTPS?"
     },
     "nginx/dest_port": {
-      "required": "required",
+      "required": "optional",
       "calculated": false,
       "choice": [
 
