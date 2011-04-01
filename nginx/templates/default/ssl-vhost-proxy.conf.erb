@@ -5,7 +5,7 @@ upstream proxy {
 <% if @params[:aliases] -%>
 server {
   <% if @params[:listen_on_http] -%>
-  listen 80
+  listen 80;
   <% end -%>
   listen 443;
   server_name <% @params[:aliases].each do |a| -%><%= " #{a}" %><% end -%>;
