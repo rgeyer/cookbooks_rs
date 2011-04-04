@@ -21,7 +21,6 @@
 #
 
 include_recipe "build-essential"
-include_recipe "runit"
 
 %w{ libpcre3 libpcre3-dev libssl-dev}.each do |devpkg|
   package devpkg
@@ -46,8 +45,6 @@ bash "compile_nginx_source" do
   EOH
   creates node[:nginx][:src_binary]
 end
-
-runit_service "nginx"
 
 include_recipe "nginx::config_server"
 

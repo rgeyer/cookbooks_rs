@@ -1,3 +1,5 @@
+include_recipe "runit"
+
 directory node[:nginx][:log_dir] do
   recursive true
   mode 0755
@@ -69,6 +71,8 @@ remote_file "#{node[:nginx][:dir]}/mime.types" do
   group "root"
   mode "0644"
 end
+
+runit_service "nginx"
 
 # Disable the default site
 nginx_site "default" do

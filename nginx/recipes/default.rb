@@ -31,9 +31,4 @@ e.run_action(:run)
 
 package "nginx-full"
 
-service "nginx" do
-  supports :status => true, :restart => true, :reload => true
-  action :nothing
-end
-
 include_recipe "nginx::config_server"
