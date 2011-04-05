@@ -72,7 +72,10 @@ remote_file "#{node[:nginx][:dir]}/mime.types" do
   mode "0644"
 end
 
-runit_service "nginx"
+service "nginx" do
+  supports :status => true, :restart => true, :reload => true
+  action [ :enable, :start ]
+end
 
 # Disable the default site
 nginx_site "default" do
