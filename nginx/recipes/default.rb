@@ -18,6 +18,8 @@
 # limitations under the License.
 #
 
+node[:nginx][:install_path] = "/usr"
+
 e = bash "add-apt-repository" do
   code <<-EOF
 apt-get -y -q install python-software-properties
