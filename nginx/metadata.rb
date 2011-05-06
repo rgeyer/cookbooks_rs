@@ -156,6 +156,13 @@ attribute "nginx/proxy_http",
   :choice => ["true", "false"],
   :recipes => ["nginx::configure_ssl_reverse_proxy", "nginx::config_server", "nginx::configure_reverse_proxy"]
 
+attribute "nginx/proxy_https",
+  :display_name => "Proxy for HTTPS?",
+  :description => "A boolean indicating if the proxy should listen and forward traffic on port 443 (HTTPS)",
+  :required => "required",
+  :choice => ["true", "false"],
+  :recipes => ["nginx::configure_ssl_reverse_proxy", "nginx::config_server", "nginx::configure_reverse_proxy"]
+
 attribute "nginx/force_https",
   :display_name => "Force HTTPS?",
   :description => "A boolean indicating if the proxy should redirect all requests to the destination using HTTPS.  This setting requires nginx/proxy_http to be true.",

@@ -377,6 +377,22 @@
       "description": "Whether gzip is enabled",
       "display_name": "Nginx Gzip"
     },
+    "nginx/proxy_https": {
+      "required": "required",
+      "calculated": false,
+      "choice": [
+        "true",
+        "false"
+      ],
+      "type": "string",
+      "recipes": [
+        "nginx::configure_ssl_reverse_proxy",
+        "nginx::config_server",
+        "nginx::configure_reverse_proxy"
+      ],
+      "description": "A boolean indicating if the proxy should listen and forward traffic on port 443 (HTTPS)",
+      "display_name": "Proxy for HTTPS?"
+    },
     "nginx/keepalive": {
       "required": "optional",
       "calculated": false,
