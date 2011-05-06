@@ -12,6 +12,7 @@ recipe "nginx::source", "Installs nginx from source and sets up configuration wi
 recipe "nginx::configure_ssl_reverse_proxy","Sets nginx up as a reverse proxy for ssl"
 recipe "nginx::enable_stats","Configure collectd stat collection for the nginx server. Intended to work with RightScale monitoring services."
 recipe "nginx::config_server", "Only intended to be included by nginx::source and nginx::default.  Does the common configuration for any installation type."
+recipe "nginx::configure_reverse_proxy","Sets nginx up as a reverse proxy for http or https"
 
 %w{ ubuntu debian }.each do |os|
   supports os
@@ -116,48 +117,48 @@ attribute "nginx/aliases",
   :type => "array",
   :default => [],
   :required => "recommended",
-  :recipes => ["nginx::configure_ssl_reverse_proxy", "nginx::config_server"]
+  :recipes => ["nginx::configure_ssl_reverse_proxy", "nginx::config_server", "nginx::configure_reverse_proxy"]
 
 attribute "nginx/accept_fqdn",
   :display_name => "Proxy for FQDN",
   :description => "The FQDN of a domain name which will be proxied to another server and port",
   :required => "required",
-  :recipes => ["nginx::configure_ssl_reverse_proxy", "nginx::config_server"]
+  :recipes => ["nginx::configure_ssl_reverse_proxy", "nginx::config_server", "nginx::configure_reverse_proxy"]
 
 attribute "nginx/dest_fqdn",
   :display_name => "Proxy Destination FQDN",
   :description => "The FQDN the server that will back the proxy, the actual source of the responses for HTTP requests.",
   :required => "required",
-  :recipes => ["nginx::configure_ssl_reverse_proxy", "nginx::config_server"]
+  :recipes => ["nginx::configure_ssl_reverse_proxy", "nginx::config_server", "nginx::configure_reverse_proxy"]
 
 attribute "nginx/dest_port",
   :display_name => "Proxy Port",
   :description => "The the proxy port to forward to",
   :required => "optional",
-  :recipes => ["nginx::configure_ssl_reverse_proxy", "nginx::config_server"]
+  :recipes => ["nginx::configure_ssl_reverse_proxy", "nginx::config_server", "nginx::configure_reverse_proxy"]
 
 attribute "nginx/s3_cert_bucket",
   :display_name => "S3 Bucket",
   :description => "The S3 bucket containing site certificate and key pairs in the pkcs12 format.",
   :required => "required",
-  :recipes => ["nginx::configure_ssl_reverse_proxy", "nginx::config_server"]
+  :recipes => ["nginx::configure_ssl_reverse_proxy", "nginx::config_server", "nginx::configure_reverse_proxy"]
 
 attribute "nginx/pkcs12_pass",
   :display_name => "PKCS12 Cert Password",
   :description => "The password used to protect the PKCS12 file.  This password is specified when the certificate is exported from windows",
   :required => "required",
-  :recipes => ["nginx::configure_ssl_reverse_proxy", "nginx::config_server"]
+  :recipes => ["nginx::configure_ssl_reverse_proxy", "nginx::config_server", "nginx::configure_reverse_proxy"]
 
 attribute "nginx/proxy_http",
   :display_name => "Proxy for HTTP?",
   :description => "A boolean indicating if the proxy should listen and forward traffic on port 80 (HTTP)",
   :required => "required",
   :choice => ["true", "false"],
-  :recipes => ["nginx::configure_ssl_reverse_proxy", "nginx::config_server"]
+  :recipes => ["nginx::configure_ssl_reverse_proxy", "nginx::config_server", "nginx::configure_reverse_proxy"]
 
 attribute "nginx/force_https",
   :display_name => "Force HTTPS?",
   :description => "A boolean indicating if the proxy should redirect all requests to the destination using HTTPS.  This setting requires nginx/proxy_http to be true.",
   :required => "required",
   :choice => ["true", "false"],
-  :recipes => ["nginx::configure_ssl_reverse_proxy", "nginx::config_server"]
+  :recipes => ["nginx::configure_ssl_reverse_proxy", "nginx::config_server", "nginx::configure_reverse_proxy"]
