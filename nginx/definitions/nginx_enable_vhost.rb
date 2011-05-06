@@ -1,4 +1,4 @@
-define :nginx_enable_vhost, :fqdn => nil, :aliases => nil do
+define :nginx_enable_vhost, :fqdn => nil, :aliases => nil, :create_doc_root => true do
   fqdn = params[:fqdn] || params[:name]
   docroot = ::File.join(node[:nginx][:content_dir],fqdn,"htdocs")
   systemroot = ::File.join(docroot, "system")
@@ -11,13 +11,15 @@ define :nginx_enable_vhost, :fqdn => nil, :aliases => nil do
 
   Chef::Log.info "Setting up vhost for fqdn (#{fqdn})"
 
-  # Create the sites new home
-  directory systemroot do
-    mode 0775
-    owner "www-data"
-    group "www-data"
-    recursive true
-    action :create
+  if(params[:create_doc_root])
+    # Create the sites new home
+    directory systemroot do
+      mode 0775
+      owner "www-data"
+      group "www-data"
+      recursive true
+      action :create
+    end
   end
 
   # Create a directory for extending the vhost config
