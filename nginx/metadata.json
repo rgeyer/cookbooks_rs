@@ -1,25 +1,13 @@
 {
-  "conflicting": {
+  "dependencies": {
+    "runit": ">= 0.0.0",
+    "skeme": ">= 0.0.0",
+    "build-essential": ">= 0.0.0",
+    "utils": ">= 0.0.0",
+    "rs_utils": ">= 0.0.0"
   },
-  "license": "Apache 2.0",
-  "providing": {
-  },
-  "recipes": {
-    "nginx::configure_ssl_reverse_proxy": "Sets nginx up as a reverse proxy for ssl",
-    "nginx::source": "Installs nginx from source and sets up configuration with Debian apache style with sites-enabled/sites-available",
-    "nginx": "Installs nginx package and sets up configuration with Debian apache style with sites-enabled/sites-available",
-    "nginx::config_server": "Only intended to be included by nginx::source and nginx::default.  Does the common configuration for any installation type.",
-    "nginx::enable_stats": "Configure collectd stat collection for the nginx server. Intended to work with RightScale monitoring services.",
-    "nginx::configure_reverse_proxy": "Sets nginx up as a reverse proxy for http or https"
-  },
-  "maintainer": "Opscode, Inc.",
-  "replacing": {
-  },
+  "name": "nginx",
   "maintainer_email": "cookbooks@opscode.com",
-  "description": "Installs and configures nginx",
-  "version": "0.14.2",
-  "groupings": {
-  },
   "attributes": {
     "nginx/dest_fqdn": {
       "required": "required",
@@ -33,8 +21,8 @@
         "nginx::config_server",
         "nginx::configure_reverse_proxy"
       ],
-      "description": "The FQDN the server that will back the proxy, the actual source of the responses for HTTP requests.",
-      "display_name": "Proxy Destination FQDN"
+      "display_name": "Proxy Destination FQDN",
+      "description": "The FQDN the server that will back the proxy, the actual source of the responses for HTTP requests."
     },
     "nginx/aliases": {
       "required": "recommended",
@@ -51,8 +39,8 @@
         "nginx::config_server",
         "nginx::configure_reverse_proxy"
       ],
-      "description": "The possible hostname aliases (if any) for the vhost.  For instance to host the same content at www.yourdomain.com and yourdomain.com simply put \"yourdomain.com\" here.  Many values can be supplied, separated by spaces. The full syntax which Nginx supports for the server_name directive are applicable here, http://wiki.nginx.org/HttpCoreModule#server_name",
-      "display_name": "Nginx Site Aliases"
+      "display_name": "Nginx Site Aliases",
+      "description": "The possible hostname aliases (if any) for the vhost.  For instance to host the same content at www.yourdomain.com and yourdomain.com simply put \"yourdomain.com\" here.  Many values can be supplied, separated by spaces. The full syntax which Nginx supports for the server_name directive are applicable here, http://wiki.nginx.org/HttpCoreModule#server_name"
     },
     "nginx/worker_connections": {
       "required": "optional",
@@ -67,8 +55,8 @@
         "nginx::source",
         "nginx::config_server"
       ],
-      "description": "Number of connections per worker",
-      "display_name": "Nginx Worker Connections"
+      "display_name": "Nginx Worker Connections",
+      "description": "Number of connections per worker"
     },
     "nginx/force_https": {
       "required": "required",
@@ -83,8 +71,8 @@
         "nginx::config_server",
         "nginx::configure_reverse_proxy"
       ],
-      "description": "A boolean indicating if the proxy should redirect all requests to the destination using HTTPS.  This setting requires nginx/proxy_http to be true.",
-      "display_name": "Force HTTPS?"
+      "display_name": "Force HTTPS?",
+      "description": "A boolean indicating if the proxy should redirect all requests to the destination using HTTPS.  This setting requires nginx/proxy_http to be true."
     },
     "nginx/dest_port": {
       "required": "optional",
@@ -98,8 +86,8 @@
         "nginx::config_server",
         "nginx::configure_reverse_proxy"
       ],
-      "description": "The the proxy port to forward to",
-      "display_name": "Proxy Port"
+      "display_name": "Proxy Port",
+      "description": "The the proxy port to forward to"
     },
     "nginx/gzip_types": {
       "required": "optional",
@@ -123,8 +111,8 @@
         "nginx::source",
         "nginx::config_server"
       ],
-      "description": "Supported MIME-types for gzip",
-      "display_name": "Nginx Gzip Types"
+      "display_name": "Nginx Gzip Types",
+      "description": "Supported MIME-types for gzip"
     },
     "nginx/binary": {
       "required": "optional",
@@ -139,8 +127,8 @@
         "nginx::source",
         "nginx::config_server"
       ],
-      "description": "Location of the nginx server binary",
-      "display_name": "Nginx Binary"
+      "display_name": "Nginx Binary",
+      "description": "Location of the nginx server binary"
     },
     "nginx/user": {
       "required": "optional",
@@ -155,8 +143,8 @@
         "nginx::source",
         "nginx::config_server"
       ],
-      "description": "User nginx will run as",
-      "display_name": "Nginx User"
+      "display_name": "Nginx User",
+      "description": "User nginx will run as"
     },
     "nginx/keepalive_timeout": {
       "required": "optional",
@@ -186,8 +174,8 @@
         "nginx::source",
         "nginx::config_server"
       ],
-      "description": "Whether gzip is proxied",
-      "display_name": "Nginx Gzip Proxied"
+      "display_name": "Nginx Gzip Proxied",
+      "description": "Whether gzip is proxied"
     },
     "nginx/gzip_comp_level": {
       "required": "optional",
@@ -202,8 +190,8 @@
         "nginx::source",
         "nginx::config_server"
       ],
-      "description": "Amount of compression to use",
-      "display_name": "Nginx Gzip Compression Level"
+      "display_name": "Nginx Gzip Compression Level",
+      "description": "Amount of compression to use"
     },
     "nginx/dir": {
       "required": "optional",
@@ -218,8 +206,8 @@
         "nginx::source",
         "nginx::config_server"
       ],
-      "description": "Location of nginx configuration files",
-      "display_name": "Nginx Directory"
+      "display_name": "Nginx Directory",
+      "description": "Location of nginx configuration files"
     },
     "nginx/proxy_http": {
       "required": "required",
@@ -234,8 +222,8 @@
         "nginx::config_server",
         "nginx::configure_reverse_proxy"
       ],
-      "description": "A boolean indicating if the proxy should listen and forward traffic on port 80 (HTTP)",
-      "display_name": "Proxy for HTTP?"
+      "display_name": "Proxy for HTTP?",
+      "description": "A boolean indicating if the proxy should listen and forward traffic on port 80 (HTTP)"
     },
     "nginx/accept_fqdn": {
       "required": "required",
@@ -249,8 +237,8 @@
         "nginx::config_server",
         "nginx::configure_reverse_proxy"
       ],
-      "description": "The FQDN of a domain name which will be proxied to another server and port",
-      "display_name": "Proxy for FQDN"
+      "display_name": "Proxy for FQDN",
+      "description": "The FQDN of a domain name which will be proxied to another server and port"
     },
     "nginx/server_names_hash_bucket_size": {
       "required": "optional",
@@ -279,8 +267,8 @@
         "nginx::config_server",
         "nginx::configure_reverse_proxy"
       ],
-      "description": "The password used to protect the PKCS12 file.  This password is specified when the certificate is exported from windows",
-      "display_name": "PKCS12 Cert Password"
+      "display_name": "PKCS12 Cert Password",
+      "description": "The password used to protect the PKCS12 file.  This password is specified when the certificate is exported from windows"
     },
     "nginx/worker_processes": {
       "required": "optional",
@@ -295,8 +283,8 @@
         "nginx::source",
         "nginx::config_server"
       ],
-      "description": "Number of worker processes",
-      "display_name": "Nginx Worker Processes"
+      "display_name": "Nginx Worker Processes",
+      "description": "Number of worker processes"
     },
     "nginx/gzip_http_version": {
       "required": "optional",
@@ -311,8 +299,8 @@
         "nginx::source",
         "nginx::config_server"
       ],
-      "description": "Version of HTTP Gzip",
-      "display_name": "Nginx Gzip HTTP Version"
+      "display_name": "Nginx Gzip HTTP Version",
+      "description": "Version of HTTP Gzip"
     },
     "nginx/s3_cert_bucket": {
       "required": "required",
@@ -326,8 +314,8 @@
         "nginx::config_server",
         "nginx::configure_reverse_proxy"
       ],
-      "description": "The S3 bucket containing site certificate and key pairs in the pkcs12 format.",
-      "display_name": "S3 Bucket"
+      "display_name": "S3 Bucket",
+      "description": "The S3 bucket containing site certificate and key pairs in the pkcs12 format."
     },
     "nginx/log_dir": {
       "required": "optional",
@@ -342,8 +330,8 @@
         "nginx::source",
         "nginx::config_server"
       ],
-      "description": "Location for nginx logs",
-      "display_name": "Nginx Log Directory"
+      "display_name": "Nginx Log Directory",
+      "description": "Location for nginx logs"
     },
     "nginx/content_dir": {
       "required": "optional",
@@ -358,8 +346,8 @@
         "nginx::source",
         "nginx::config_server"
       ],
-      "description": "Location of nginx content files",
-      "display_name": "Nginx Content Directory"
+      "display_name": "Nginx Content Directory",
+      "description": "Location of nginx content files"
     },
     "nginx/gzip": {
       "required": "optional",
@@ -374,8 +362,8 @@
         "nginx::source",
         "nginx::config_server"
       ],
-      "description": "Whether gzip is enabled",
-      "display_name": "Nginx Gzip"
+      "display_name": "Nginx Gzip",
+      "description": "Whether gzip is enabled"
     },
     "nginx/proxy_https": {
       "required": "required",
@@ -390,8 +378,8 @@
         "nginx::config_server",
         "nginx::configure_reverse_proxy"
       ],
-      "description": "A boolean indicating if the proxy should listen and forward traffic on port 443 (HTTPS)",
-      "display_name": "Proxy for HTTPS?"
+      "display_name": "Proxy for HTTPS?",
+      "description": "A boolean indicating if the proxy should listen and forward traffic on port 443 (HTTPS)"
     },
     "nginx/keepalive": {
       "required": "optional",
@@ -406,36 +394,37 @@
         "nginx::source",
         "nginx::config_server"
       ],
-      "description": "Whether to enable keepalive",
-      "display_name": "Nginx Keepalive"
+      "display_name": "Nginx Keepalive",
+      "description": "Whether to enable keepalive"
     }
   },
-  "recommendations": {
-  },
-  "dependencies": {
-    "runit": [
-
-    ],
-    "build-essential": [
-
-    ],
-    "utils": [
-
-    ],
-    "rs_utils": [
-
-    ]
-  },
-  "platforms": {
-    "debian": [
-
-    ],
-    "ubuntu": [
-
-    ]
-  },
-  "name": "nginx",
+  "license": "Apache 2.0",
   "suggestions": {
   },
-  "long_description": ""
+  "platforms": {
+    "debian": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0"
+  },
+  "maintainer": "Opscode, Inc.",
+  "long_description": "",
+  "version": "0.14.2",
+  "recommendations": {
+  },
+  "recipes": {
+    "nginx::configure_ssl_reverse_proxy": "Sets nginx up as a reverse proxy for ssl",
+    "nginx::source": "Installs nginx from source and sets up configuration with Debian apache style with sites-enabled/sites-available",
+    "nginx": "Installs nginx package and sets up configuration with Debian apache style with sites-enabled/sites-available",
+    "nginx::config_server": "Only intended to be included by nginx::source and nginx::default.  Does the common configuration for any installation type.",
+    "nginx::enable_stats": "Configure collectd stat collection for the nginx server. Intended to work with RightScale monitoring services.",
+    "nginx::configure_reverse_proxy": "Sets nginx up as a reverse proxy for http or https"
+  },
+  "groupings": {
+  },
+  "conflicting": {
+  },
+  "replacing": {
+  },
+  "description": "Installs and configures nginx",
+  "providing": {
+  }
 }

@@ -6,6 +6,7 @@ version           "0.14.2"
 
 depends "utils"
 depends "rs_utils"
+depends "skeme"
 
 recipe "nginx", "Installs nginx package and sets up configuration with Debian apache style with sites-enabled/sites-available"
 recipe "nginx::source", "Installs nginx from source and sets up configuration with Debian apache style with sites-enabled/sites-available"
