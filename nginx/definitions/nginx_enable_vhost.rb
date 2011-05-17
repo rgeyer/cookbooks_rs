@@ -39,6 +39,7 @@ define :nginx_enable_vhost, :fqdn => nil, :aliases => nil, :create_doc_root => t
     owner "root"
     group "root"
     mode 0644
+  backup false
     if params[:cookbook]
       cookbook params[:cookbook]
     end

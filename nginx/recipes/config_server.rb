@@ -54,6 +54,7 @@ end
     mode 0755
     owner "root"
     group "root"
+    backup false
   end
 end
 
@@ -63,6 +64,7 @@ template "nginx.conf" do
   owner "root"
   group "root"
   mode 0644
+  backup false
 end
 
 remote_file "#{node[:nginx][:dir]}/mime.types" do
@@ -70,6 +72,7 @@ remote_file "#{node[:nginx][:dir]}/mime.types" do
   owner "root"
   group "root"
   mode "0644"
+  backup false
 end
 
 service "nginx" do
