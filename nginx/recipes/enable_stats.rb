@@ -1,8 +1,10 @@
 include_recipe "nginx::config_server"
 
 # Load the nginx plugin in the main config file
-node[:rs_utils][:plugin_list] += " nginx" unless node[:rs_utils][:plugin_list] =~ /nginx/
-node[:rs_utils][:process_list] += " nginx" unless node[:rs_utils][:process_list] =~ /nginx/
+rs_utils_enable_collectd_plugin "nginx"
+#node[:rs_utils][:plugin_list] += " nginx" unless node[:rs_utils][:plugin_list] =~ /nginx/
+rs_utils_monitor_process "nginx"
+#node[:rs_utils][:process_list] += " nginx" unless node[:rs_utils][:process_list] =~ /nginx/
 
 include_recipe "rs_utils::setup_monitoring"
 
