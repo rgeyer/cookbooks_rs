@@ -37,7 +37,8 @@
       "recipes": [
         "nginx::configure_ssl_reverse_proxy",
         "nginx::config_server",
-        "nginx::configure_reverse_proxy"
+        "nginx::configure_reverse_proxy",
+        "nginx::enable_site_vhost"
       ],
       "display_name": "Nginx Site Aliases",
       "description": "The possible hostname aliases (if any) for the vhost.  For instance to host the same content at www.yourdomain.com and yourdomain.com simply put \"yourdomain.com\" here.  Many values can be supplied, separated by spaces. The full syntax which Nginx supports for the server_name directive are applicable here, http://wiki.nginx.org/HttpCoreModule#server_name"
@@ -57,6 +58,19 @@
       ],
       "display_name": "Nginx Worker Connections",
       "description": "Number of connections per worker"
+    },
+    "nginx/vhost_fqdn": {
+      "required": "required",
+      "calculated": false,
+      "choice": [
+
+      ],
+      "type": "string",
+      "recipes": [
+        "nginx::enable_site_vhost"
+      ],
+      "display_name": "VHOST FQDN",
+      "description": "The fully qualified domain name (FQDN) of the new vhost to create.  Example www.apache.org"
     },
     "nginx/force_https": {
       "required": "required",
