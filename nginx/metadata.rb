@@ -119,7 +119,7 @@ attribute "nginx/aliases",
   :type => "array",
   :default => [],
   :required => "recommended",
-  :recipes => ["nginx::configure_ssl_reverse_proxy", "nginx::config_server", "nginx::configure_reverse_proxy", "nginx::enable_site_vhost"]
+  :recipes => ["nginx::configure_ssl_reverse_proxy", "nginx::config_server", "nginx::configure_reverse_proxy", "nginx::enable_vhost"]
 
 attribute "nginx/accept_fqdn",
   :display_name => "Proxy for FQDN",
@@ -176,4 +176,4 @@ attribute "nginx/vhost_fqdn",
   :display_name => "VHOST FQDN",
   :description => "The fully qualified domain name (FQDN) of the new vhost to create.  Example www.apache.org",
   :required => "required",
-  :recipes => ["nginx::enable_site_vhost"]
+  :recipes => ["nginx::enable_vhost"]
