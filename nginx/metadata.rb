@@ -14,6 +14,7 @@ recipe "nginx::configure_ssl_reverse_proxy","Sets nginx up as a reverse proxy fo
 recipe "nginx::enable_stats","Configure collectd stat collection for the nginx server. Intended to work with RightScale monitoring services."
 recipe "nginx::config_server", "Only intended to be included by nginx::source and nginx::default.  Does the common configuration for any installation type."
 recipe "nginx::configure_reverse_proxy","Sets nginx up as a reverse proxy for http or https"
+recipe "nginx::enable_vhost","Sets up a basic vhost directory and configuration"
 
 %w{ ubuntu debian }.each do |os|
   supports os

@@ -430,7 +430,8 @@
     "nginx": "Installs nginx package and sets up configuration with Debian apache style with sites-enabled/sites-available",
     "nginx::config_server": "Only intended to be included by nginx::source and nginx::default.  Does the common configuration for any installation type.",
     "nginx::enable_stats": "Configure collectd stat collection for the nginx server. Intended to work with RightScale monitoring services.",
-    "nginx::configure_reverse_proxy": "Sets nginx up as a reverse proxy for http or https"
+    "nginx::configure_reverse_proxy": "Sets nginx up as a reverse proxy for http or https",
+    "nginx::enable_vhost": "Sets up a basic vhost directory and configuration"
   },
   "groupings": {
   },
