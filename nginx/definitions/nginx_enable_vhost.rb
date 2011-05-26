@@ -1,4 +1,6 @@
 define :nginx_enable_vhost, :fqdn => nil, :aliases => nil, :create_doc_root => true do
+  include_recipe "skeme::default"
+
   fqdn = params[:fqdn] || params[:name]
   configroot = ::File.join(node[:nginx][:content_dir],fqdn,"nginx_config")
   docroot = ::File.join(node[:nginx][:content_dir],fqdn,"htdocs")
