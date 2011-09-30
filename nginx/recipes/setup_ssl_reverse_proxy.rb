@@ -1,10 +1,30 @@
+#
+# Cookbook Name:: nginx
+# Recipe:: setup_ssl_reverse_proxy
+#
+# Copyright 2011, Ryan J. Geyer
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 accept_fqdn=node[:nginx][:accept_fqdn]
 underscored_accept_fqdn=accept_fqdn.gsub(".","_")
 
 rsa_cert="#{node[:nginx][:dir]}/ssl/#{node[:nginx][:accept_fqdn]}.crt"
 rsa_key="#{node[:nginx][:dir]}/ssl/#{node[:nginx][:accept_fqdn]}.key"
 
-include_recipe "nginx::config_server"
+rs_utils_marker :begin
+
+include_recipe "nginx::setup_server"
 
 directory "#{node[:nginx][:dir]}/ssl" do
   mode 0644
@@ -57,3 +77,5 @@ node[:nginx][:aliases].each do |a|
     action :add
   end if node[:nginx][:proxy_http] == "true"
 end if node[:nginx][:aliases]
+
+rs_utils_marker :end

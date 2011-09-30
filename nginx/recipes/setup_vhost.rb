@@ -1,9 +1,8 @@
 #
 # Cookbook Name:: nginx
-# Recipe:: default
-# Author:: AJ Christensen <aj@junglist.gen.nz>
+# Recipe:: setup_vhost
 #
-# Copyright 2008-2009, Opscode, Inc.
+# Copyright 2011, Ryan J. Geyer
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,21 +15,12 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-#
 
-node[:nginx][:install_path] = "/usr"
+rs_utils_marker :begin
 
-e = bash "add-apt-repository" do
-  code <<-EOF
-apt-get -y -q install python-software-properties
-add-apt-repository ppa:nginx/stable
-apt-get update -o Acquire::http::No-Cache=1
-EOF
-  action :nothing
+nginx_enable_vhost "Vhost" do
+  fqdn node[:nginx][:vhost_fqdn]
+  aliases node[:nginx][:aliases]
 end
 
-e.run_action(:run)
-
-package "nginx-full"
-
-include_recipe "nginx::config_server"
+rs_utils_marker :end

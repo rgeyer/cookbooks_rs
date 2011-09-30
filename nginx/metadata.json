@@ -7,7 +7,7 @@
     "rs_utils": ">= 0.0.0"
   },
   "name": "nginx",
-  "maintainer_email": "cookbooks@opscode.com",
+  "maintainer_email": "me@ryangeyer.com",
   "attributes": {
     "nginx/dest_fqdn": {
       "required": "required",
@@ -17,9 +17,9 @@
       ],
       "type": "string",
       "recipes": [
-        "nginx::configure_ssl_reverse_proxy",
-        "nginx::config_server",
-        "nginx::configure_reverse_proxy"
+        "nginx::setup_ssl_reverse_proxy",
+        "nginx::setup_server",
+        "nginx::setup_reverse_proxy"
       ],
       "display_name": "Proxy Destination FQDN",
       "description": "The FQDN the server that will back the proxy, the actual source of the responses for HTTP requests."
@@ -35,10 +35,10 @@
       ],
       "type": "array",
       "recipes": [
-        "nginx::configure_ssl_reverse_proxy",
-        "nginx::config_server",
-        "nginx::configure_reverse_proxy",
-        "nginx::enable_vhost"
+        "nginx::setup_ssl_reverse_proxy",
+        "nginx::setup_server",
+        "nginx::setup_reverse_proxy",
+        "nginx::setup_vhost"
       ],
       "display_name": "Nginx Site Aliases",
       "description": "The possible hostname aliases (if any) for the vhost.  For instance to host the same content at www.yourdomain.com and yourdomain.com simply put \"yourdomain.com\" here.  Many values can be supplied, separated by spaces. The full syntax which Nginx supports for the server_name directive are applicable here, http://wiki.nginx.org/HttpCoreModule#server_name"
@@ -52,9 +52,9 @@
       "default": "1024",
       "type": "string",
       "recipes": [
-        "nginx::default",
-        "nginx::source",
-        "nginx::config_server"
+        "nginx::install_from_package",
+        "nginx::install_from_source",
+        "nginx::setup_server"
       ],
       "display_name": "Nginx Worker Connections",
       "description": "Number of connections per worker"
@@ -67,7 +67,7 @@
       ],
       "type": "string",
       "recipes": [
-        "nginx::enable_vhost"
+        "nginx::setup_vhost"
       ],
       "display_name": "VHOST FQDN",
       "description": "The fully qualified domain name (FQDN) of the new vhost to create.  Example www.apache.org"
@@ -81,9 +81,9 @@
       ],
       "type": "string",
       "recipes": [
-        "nginx::configure_ssl_reverse_proxy",
-        "nginx::config_server",
-        "nginx::configure_reverse_proxy"
+        "nginx::setup_ssl_reverse_proxy",
+        "nginx::setup_server",
+        "nginx::setup_reverse_proxy"
       ],
       "display_name": "Force HTTPS?",
       "description": "A boolean indicating if the proxy should redirect all requests to the destination using HTTPS.  This setting requires nginx/proxy_http to be true."
@@ -96,9 +96,9 @@
       ],
       "type": "string",
       "recipes": [
-        "nginx::configure_ssl_reverse_proxy",
-        "nginx::config_server",
-        "nginx::configure_reverse_proxy"
+        "nginx::setup_ssl_reverse_proxy",
+        "nginx::setup_server",
+        "nginx::setup_reverse_proxy"
       ],
       "display_name": "Proxy Port",
       "description": "The the proxy port to forward to"
@@ -121,9 +121,9 @@
       ],
       "type": "array",
       "recipes": [
-        "nginx::default",
-        "nginx::source",
-        "nginx::config_server"
+        "nginx::install_from_package",
+        "nginx::install_from_source",
+        "nginx::setup_server"
       ],
       "display_name": "Nginx Gzip Types",
       "description": "Supported MIME-types for gzip"
@@ -137,9 +137,9 @@
       "default": "/usr/sbin/nginx",
       "type": "string",
       "recipes": [
-        "nginx::default",
-        "nginx::source",
-        "nginx::config_server"
+        "nginx::install_from_package",
+        "nginx::install_from_source",
+        "nginx::setup_server"
       ],
       "display_name": "Nginx Binary",
       "description": "Location of the nginx server binary"
@@ -153,9 +153,9 @@
       "default": "www-data",
       "type": "string",
       "recipes": [
-        "nginx::default",
-        "nginx::source",
-        "nginx::config_server"
+        "nginx::install_from_package",
+        "nginx::install_from_source",
+        "nginx::setup_server"
       ],
       "display_name": "Nginx User",
       "description": "User nginx will run as"
@@ -169,9 +169,9 @@
       "default": "65",
       "type": "string",
       "recipes": [
-        "nginx::default",
-        "nginx::source",
-        "nginx::config_server"
+        "nginx::install_from_package",
+        "nginx::install_from_source",
+        "nginx::setup_server"
       ],
       "display_name": "Nginx Keepalive Timeout"
     },
@@ -184,9 +184,9 @@
       "default": "any",
       "type": "string",
       "recipes": [
-        "nginx::default",
-        "nginx::source",
-        "nginx::config_server"
+        "nginx::install_from_package",
+        "nginx::install_from_source",
+        "nginx::setup_server"
       ],
       "display_name": "Nginx Gzip Proxied",
       "description": "Whether gzip is proxied"
@@ -200,9 +200,9 @@
       "default": "2",
       "type": "string",
       "recipes": [
-        "nginx::default",
-        "nginx::source",
-        "nginx::config_server"
+        "nginx::install_from_package",
+        "nginx::install_from_source",
+        "nginx::setup_server"
       ],
       "display_name": "Nginx Gzip Compression Level",
       "description": "Amount of compression to use"
@@ -216,9 +216,9 @@
       "default": "/etc/nginx",
       "type": "string",
       "recipes": [
-        "nginx::default",
-        "nginx::source",
-        "nginx::config_server"
+        "nginx::install_from_package",
+        "nginx::install_from_source",
+        "nginx::setup_server"
       ],
       "display_name": "Nginx Directory",
       "description": "Location of nginx configuration files"
@@ -232,9 +232,9 @@
       ],
       "type": "string",
       "recipes": [
-        "nginx::configure_ssl_reverse_proxy",
-        "nginx::config_server",
-        "nginx::configure_reverse_proxy"
+        "nginx::setup_ssl_reverse_proxy",
+        "nginx::setup_server",
+        "nginx::setup_reverse_proxy"
       ],
       "display_name": "Proxy for HTTP?",
       "description": "A boolean indicating if the proxy should listen and forward traffic on port 80 (HTTP)"
@@ -247,9 +247,9 @@
       ],
       "type": "string",
       "recipes": [
-        "nginx::configure_ssl_reverse_proxy",
-        "nginx::config_server",
-        "nginx::configure_reverse_proxy"
+        "nginx::setup_ssl_reverse_proxy",
+        "nginx::setup_server",
+        "nginx::setup_reverse_proxy"
       ],
       "display_name": "Proxy for FQDN",
       "description": "The FQDN of a domain name which will be proxied to another server and port"
@@ -263,9 +263,9 @@
       "default": "64",
       "type": "string",
       "recipes": [
-        "nginx::default",
-        "nginx::source",
-        "nginx::config_server"
+        "nginx::install_from_package",
+        "nginx::install_from_source",
+        "nginx::setup_server"
       ],
       "display_name": "Nginx Server Names Hash Bucket Size"
     },
@@ -277,9 +277,9 @@
       ],
       "type": "string",
       "recipes": [
-        "nginx::configure_ssl_reverse_proxy",
-        "nginx::config_server",
-        "nginx::configure_reverse_proxy"
+        "nginx::setup_ssl_reverse_proxy",
+        "nginx::setup_server",
+        "nginx::setup_reverse_proxy"
       ],
       "display_name": "PKCS12 Cert Password",
       "description": "The password used to protect the PKCS12 file.  This password is specified when the certificate is exported from windows"
@@ -293,9 +293,9 @@
       "default": "1",
       "type": "string",
       "recipes": [
-        "nginx::default",
-        "nginx::source",
-        "nginx::config_server"
+        "nginx::install_from_package",
+        "nginx::install_from_source",
+        "nginx::setup_server"
       ],
       "display_name": "Nginx Worker Processes",
       "description": "Number of worker processes"
@@ -309,9 +309,9 @@
       "default": "1.0",
       "type": "string",
       "recipes": [
-        "nginx::default",
-        "nginx::source",
-        "nginx::config_server"
+        "nginx::install_from_package",
+        "nginx::install_from_source",
+        "nginx::setup_server"
       ],
       "display_name": "Nginx Gzip HTTP Version",
       "description": "Version of HTTP Gzip"
@@ -324,9 +324,9 @@
       ],
       "type": "string",
       "recipes": [
-        "nginx::configure_ssl_reverse_proxy",
-        "nginx::config_server",
-        "nginx::configure_reverse_proxy"
+        "nginx::setup_ssl_reverse_proxy",
+        "nginx::setup_server",
+        "nginx::setup_reverse_proxy"
       ],
       "display_name": "S3 Bucket",
       "description": "The S3 bucket containing site certificate and key pairs in the pkcs12 format."
@@ -340,9 +340,9 @@
       "default": "/var/log/nginx",
       "type": "string",
       "recipes": [
-        "nginx::default",
-        "nginx::source",
-        "nginx::config_server"
+        "nginx::install_from_package",
+        "nginx::install_from_source",
+        "nginx::setup_server"
       ],
       "display_name": "Nginx Log Directory",
       "description": "Location for nginx logs"
@@ -356,9 +356,9 @@
       "default": "/var/www",
       "type": "string",
       "recipes": [
-        "nginx::default",
-        "nginx::source",
-        "nginx::config_server"
+        "nginx::install_from_package",
+        "nginx::install_from_source",
+        "nginx::setup_server"
       ],
       "display_name": "Nginx Content Directory",
       "description": "Location of nginx content files"
@@ -372,9 +372,9 @@
       "default": "on",
       "type": "string",
       "recipes": [
-        "nginx::default",
-        "nginx::source",
-        "nginx::config_server"
+        "nginx::install_from_package",
+        "nginx::install_from_source",
+        "nginx::setup_server"
       ],
       "display_name": "Nginx Gzip",
       "description": "Whether gzip is enabled"
@@ -388,9 +388,9 @@
       ],
       "type": "string",
       "recipes": [
-        "nginx::configure_ssl_reverse_proxy",
-        "nginx::config_server",
-        "nginx::configure_reverse_proxy"
+        "nginx::setup_ssl_reverse_proxy",
+        "nginx::setup_server",
+        "nginx::setup_reverse_proxy"
       ],
       "display_name": "Proxy for HTTPS?",
       "description": "A boolean indicating if the proxy should listen and forward traffic on port 443 (HTTPS)"
@@ -404,9 +404,9 @@
       "default": "on",
       "type": "string",
       "recipes": [
-        "nginx::default",
-        "nginx::source",
-        "nginx::config_server"
+        "nginx::install_from_package",
+        "nginx::install_from_source",
+        "nginx::setup_server"
       ],
       "display_name": "Nginx Keepalive",
       "description": "Whether to enable keepalive"
@@ -416,22 +416,24 @@
   "suggestions": {
   },
   "platforms": {
+    "rhel": ">= 0.0.0",
     "debian": ">= 0.0.0",
+    "centos": ">= 0.0.0",
     "ubuntu": ">= 0.0.0"
   },
-  "maintainer": "Opscode, Inc.",
+  "maintainer": "Ryan J. Geyer",
   "long_description": "",
-  "version": "0.14.2",
+  "version": "0.0.1",
   "recommendations": {
   },
   "recipes": {
-    "nginx::configure_ssl_reverse_proxy": "Sets nginx up as a reverse proxy for ssl",
-    "nginx::source": "Installs nginx from source and sets up configuration with Debian apache style with sites-enabled/sites-available",
-    "nginx": "Installs nginx package and sets up configuration with Debian apache style with sites-enabled/sites-available",
-    "nginx::config_server": "Only intended to be included by nginx::source and nginx::default.  Does the common configuration for any installation type.",
-    "nginx::enable_stats": "Configure collectd stat collection for the nginx server. Intended to work with RightScale monitoring services.",
-    "nginx::configure_reverse_proxy": "Sets nginx up as a reverse proxy for http or https",
-    "nginx::enable_vhost": "Sets up a basic vhost directory and configuration"
+    "nginx::setup_server": "Only intended to be included by nginx::source and nginx::default.  Does the common configuration for any installation type.",
+    "nginx::setup_ssl_reverse_proxy": "Sets nginx up as a reverse proxy for ssl",
+    "nginx::setup_stats": "Configure collectd stat collection for the nginx server. Intended to work with RightScale monitoring services.",
+    "nginx::setup_vhost": "Sets up a basic vhost directory and configuration",
+    "nginx::install_from_package": "Installs nginx package and sets up configuration with Debian apache style with sites-enabled/sites-available",
+    "nginx::install_from_source": "Installs nginx from source and sets up configuration with Debian apache style with sites-enabled/sites-available",
+    "nginx::setup_reverse_proxy": "Sets nginx up as a reverse proxy for http or https"
   },
   "groupings": {
   },
@@ -439,7 +441,7 @@
   },
   "replacing": {
   },
-  "description": "Installs and configures nginx",
+  "description": "Originally forked from and inspired by the opscode nginx cookbook, but subsequently tweaked and hacked to no longer represent it. https://github.com/opscode/cookbooks/tree/master/nginx",
   "providing": {
   }
 }

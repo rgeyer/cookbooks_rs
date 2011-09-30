@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: nginx
-# Recipe:: source
+# Recipe:: install_from_source
 #
 # Author:: Adam Jacob (<adam@opscode.com>)
 # Author:: Joshua Timberman (<joshua@opscode.com>)
@@ -19,6 +19,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+
+rs_utils_marker :begin
 
 include_recipe "build-essential"
 
@@ -46,6 +48,8 @@ bash "compile_nginx_source" do
   creates node[:nginx][:src_binary]
 end
 
-include_recipe "nginx::config_server"
+include_recipe "nginx::setup_server"
+
+rs_utils_marker :end
 
 
