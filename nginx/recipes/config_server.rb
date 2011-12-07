@@ -75,6 +75,14 @@ remote_file "#{node[:nginx][:dir]}/mime.types" do
   backup false
 end
 
+remote_file "#{node[:nginx][:dir]/fastcgi_params}" do
+  source "fastcgi_params"
+  owner "root"
+  group "root"
+  mode "0644"
+  backup false
+end
+
 service "nginx" do
   supports :status => true, :restart => true, :reload => true
   action [ :enable, :start ]
