@@ -75,7 +75,7 @@ remote_file "#{node[:nginx][:dir]}/mime.types" do
   backup false
 end
 
-remote_file "#{node[:nginx][:dir]/fastcgi_params}" do
+remote_file "#{node[:nginx][:dir]}/fastcgi_params" do
   source "fastcgi_params"
   owner "root"
   group "root"
